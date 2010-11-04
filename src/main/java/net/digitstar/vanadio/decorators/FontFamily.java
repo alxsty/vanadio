@@ -16,6 +16,8 @@
 
 package net.digitstar.vanadio.decorators;
 
+import java.lang.reflect.Field;
+
 /**
  * Author: alx
  * Date: 3-nov-2010
@@ -25,7 +27,8 @@ package net.digitstar.vanadio.decorators;
 public abstract class FontFamily {
 
     private String name = null;
-    private static FontFamily _default = null;
+    private static Field _default = null;
+
 
     protected FontFamily(String name)
     {
@@ -33,18 +36,17 @@ public abstract class FontFamily {
         this.name = name;
     }
 
+
     private FontFamily() 
     {
-        Class<?> clazzes[] = this.getClass().getDeclaredClasses();
-        for (Class<?> item: clazzes)
+        Field field[] = this.getClass().getDeclaredFields();
+        for (Field item: field)
         {
-            if (item.isAnnotationPresent(Default.class) &&  FontFamily.class.isAssignableFrom(item))
+            if (item.isAnnotationPresent(Default.class) &&  FontFamily.class.isAssignableFrom(item.getDeclaringClass()))
             {
-                _default = FontFamily.class.cast(item);
+                    _default =  item;
             }
         }
-
-
     }
 
     public final String getName()
@@ -55,7 +57,11 @@ public abstract class FontFamily {
 
     public  static FontFamily getDefaultFontFamily()
     {
-        return _default;
+        FontFamily f = null;
+        try {
+            f = FontFamily.class.cast(_default.get(null));
+        } catch (IllegalAccessException e) { /*do nothing*/ }
+        return f;
     }
 
 }
