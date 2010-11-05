@@ -59,8 +59,8 @@ public class FontFamilyTest extends TestCase {
      *
      */
     public void testGetDefaultFontFamily() throws Exception {
-        FontFamily f1 = BuiltInFontFamily.getDefaultFontFamily();
-        FontFamily f2 = TestCustomFontFamily.getDefaultFontFamily();
+        FontFamily f1 = BuiltInFontFamily.getDefault();
+        FontFamily f2 = TestCustomFontFamily.getDefault();
 
        assertNotSame(f1,f2);
 

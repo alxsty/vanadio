@@ -17,7 +17,6 @@
 package net.digitstar.vanadio.decorators.builtin;
 
 import com.itextpdf.text.pdf.BaseFont;
-import net.digitstar.vanadio.decorators.Default;
 import net.digitstar.vanadio.decorators.FontFamily;
 
 /**
@@ -35,10 +34,15 @@ public class BuiltInFontFamily extends FontFamily {
     public static final FontFamily TIMES_ROMAN = new BuiltInFontFamily(BaseFont.TIMES_ROMAN);
     public static final FontFamily SYMBOL = new BuiltInFontFamily(BaseFont.SYMBOL);
     public static final FontFamily ZAPFDINGBATS = new BuiltInFontFamily(BaseFont.ZAPFDINGBATS);
-    @Default
     public static final FontFamily ARIAL = new BuiltInFontFamily("Arial");
+
+    static
+    {
+        _DEFAULT = ARIAL;
+    }
 
     private BuiltInFontFamily(String name) {
         super(name);
     }
+
 }

@@ -16,38 +16,24 @@
 
 package net.digitstar.vanadio.decorators;
 
-import java.lang.reflect.Field;
-
 /**
  * Author: alx
  * Date: 3-nov-2010
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-public abstract class FontFamily {
-
+public abstract class FontFamily
+{
     private String name = null;
-    private static Field _default = null;
+    protected static FontFamily _DEFAULT = null;
 
 
     protected FontFamily(String name)
     {
-        this();
         this.name = name;
     }
 
 
-    private FontFamily() 
-    {
-        Field field[] = this.getClass().getDeclaredFields();
-        for (Field item: field)
-        {
-            if (item.isAnnotationPresent(Default.class) &&  FontFamily.class.isAssignableFrom(item.getDeclaringClass()))
-            {
-                    _default =  item;
-            }
-        }
-    }
 
     public final String getName()
     {
@@ -55,13 +41,10 @@ public abstract class FontFamily {
         return name;
     }
 
-    public  static FontFamily getDefaultFontFamily()
-    {
-        FontFamily f = null;
-        try {
-            f = FontFamily.class.cast(_default.get(null));
-        } catch (IllegalAccessException e) { /*do nothing*/ }
-        return f;
-    }
 
+    public  static FontFamily getDefault()
+    {
+        return _DEFAULT;
+    }
 }
+
