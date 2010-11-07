@@ -31,6 +31,12 @@ import com.itextpdf.text.pdf.PdfPageEvent;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfWriter;
+import net.digitstar.vanadio.styles.CellStyle;
+import net.digitstar.vanadio.styles.Styles;
+import net.digitstar.vanadio.styles.TableStyle;
+import net.digitstar.vanadio.tables.Group;
+import net.digitstar.vanadio.tables.Table;
+import net.digitstar.vanadio.tables.TableMap;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -45,6 +51,12 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+/**
+ * Author: alx
+ * Date: 7-nov-2010
+ * <p/>
+ * Vanadio a useful pdf report generator code driven
+ */
 public abstract class AbstractReportPdf<E>
 	extends AbstractReportBase implements PdfPageEvent
 {
@@ -489,7 +501,7 @@ public abstract class AbstractReportPdf<E>
             right = Styles.Labels.PRINTED.getEtichettaFormatta(getFmtDataOra().format(new Date()));
 
 	    def.setHorizontalAlignment(CellStyle.Align.LEFT.getValue());
-	    footer.addCell(new Phrase(left,Styles.FontType.HEADERFOOTER.getFont()));
+	    footer.addCell(new Phrase(left, Styles.FontType.HEADERFOOTER.getFont()));
 	    def.setHorizontalAlignment(CellStyle.Align.CENTER.getValue());
 	    footer.addCell(new Phrase(center,Styles.FontType.HEADERFOOTER.getFont()));
 	    def.setHorizontalAlignment(CellStyle.Align.RIGHT.getValue());

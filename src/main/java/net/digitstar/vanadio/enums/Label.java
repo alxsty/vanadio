@@ -14,7 +14,7 @@
  *     limitations under the License.
  */
 
-package net.digitstar.vanadio;
+package net.digitstar.vanadio.enums;
 
 /**
  * Author: alx
@@ -22,42 +22,25 @@ package net.digitstar.vanadio;
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-public abstract class AbstractReportBase
-	implements ReportBase
+class Label
 {
+    private String label;
+    private String abbreviation;
 
-	/**
-	 *
-	 * @param reportOptions opzioni del report
-	 * @return opzioniReport
-	 */
-	protected ReportOptions customizeReportOptions(ReportOptions reportOptions)
-	{
-		return reportOptions;
-	}
+    Label()
+    {
+        this(null,null);
+    }
+    Label(String label, String abbreviation) {
+        this.label = label;
+        this.abbreviation = abbreviation;
+    }
 
+    String getLabel() {
+        return label;
+    }
 
-	/**
-	 *
-     * @param reportOptions opzioni del report
-	 */
-	public void setReportOptions(ReportOptions reportOptions)
-	{
-		if (reportOptions != null)
-		{
-			this.reportOptions = customizeReportOptions(reportOptions);
-		}
-	}
-
-	/**
-	 *
-	 * @return opzioniReport
-	 */
-	public ReportOptions getReportOptions()
-	{
-		return this.reportOptions;
-	}
-
-	private ReportOptions reportOptions = new ReportOptions();
-
+    String getAbbreviation() {
+        return abbreviation;
+    }
 }

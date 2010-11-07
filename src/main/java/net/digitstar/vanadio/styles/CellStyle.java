@@ -1,28 +1,37 @@
-package net.digitstar.vanadio;
+/*
+ * Copyright 2010 DiGiTsTar.NeT (dTs)
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *     Unless required by applicable law or agreed to in writing, software
+ *     distributed under the License is distributed on an "AS IS" BASIS,
+ *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *     See the License for the specific language governing permissions and
+ *     limitations under the License.
+ */
+
+package net.digitstar.vanadio.styles;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPTable;
+import net.digitstar.vanadio.enums.FontType;
 
 import java.text.Format;
 
-import static net.digitstar.vanadio.Styles.*;
 
 
 /**
- * <p>Title: AscotWeb Elezioni</p>
+ * Author: alx
+ * Date: 7-nov-2010
  * <p/>
- * <p>Description: Gestione consultazioni elettorali</p>
- * <p/>
- * <p>Copyright: Copyright (c) 2001-2009</p>
- * <p/>
- * <p>Company: Insiel S.p.A.</p>
- *
- * @author Alex Svetina
- * @author Tino Pratticò
- * @version 2009 rel. 2009
+ * Vanadio a useful pdf report generator code driven
  */
 
 public class CellStyle
@@ -455,11 +464,6 @@ public class CellStyle
 	{
 		this.cellFont = cellFont;
 		return this;
-	}
-
-	public CellStyle setCellFont(FontType cellFont)
-	{
-		return setCellFont(cellFont.getFont());
 	}
 
 	public boolean isFitImage()

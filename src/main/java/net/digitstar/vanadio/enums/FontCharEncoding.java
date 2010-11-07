@@ -14,50 +14,36 @@
  *     limitations under the License.
  */
 
-package net.digitstar.vanadio;
+package net.digitstar.vanadio.enums;
 
 /**
  * Author: alx
- * Date: 7-nov-2010
+ * Date: 3-nov-2010
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-public abstract class AbstractReportBase
-	implements ReportBase
+public abstract class FontCharEncoding
 {
-
-	/**
-	 *
-	 * @param reportOptions opzioni del report
-	 * @return opzioniReport
-	 */
-	protected ReportOptions customizeReportOptions(ReportOptions reportOptions)
-	{
-		return reportOptions;
-	}
+    private String name = null;
 
 
-	/**
-	 *
-     * @param reportOptions opzioni del report
-	 */
-	public void setReportOptions(ReportOptions reportOptions)
-	{
-		if (reportOptions != null)
-		{
-			this.reportOptions = customizeReportOptions(reportOptions);
-		}
-	}
+    protected FontCharEncoding(String name)
+    {
+        this.name = name;
+    }
 
-	/**
-	 *
-	 * @return opzioniReport
-	 */
-	public ReportOptions getReportOptions()
-	{
-		return this.reportOptions;
-	}
 
-	private ReportOptions reportOptions = new ReportOptions();
 
+    public final String getName()
+    {
+
+        return name;
+    }
+
+
+    public static FontCharEncoding getDefault()
+    {
+        throw new RuntimeException("You must redefine the getDefault() in your claas.");
+    }
 }
+

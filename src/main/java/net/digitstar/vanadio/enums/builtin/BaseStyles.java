@@ -14,7 +14,9 @@
  *     limitations under the License.
  */
 
-package net.digitstar.vanadio;
+package net.digitstar.vanadio.enums.builtin;
+
+import net.digitstar.vanadio.enums.FontFamily;
 
 /**
  * Author: alx
@@ -22,42 +24,7 @@ package net.digitstar.vanadio;
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-public abstract class AbstractReportBase
-	implements ReportBase
+public class BaseStyles<F extends BaseFontFamily>
 {
-
-	/**
-	 *
-	 * @param reportOptions opzioni del report
-	 * @return opzioniReport
-	 */
-	protected ReportOptions customizeReportOptions(ReportOptions reportOptions)
-	{
-		return reportOptions;
-	}
-
-
-	/**
-	 *
-     * @param reportOptions opzioni del report
-	 */
-	public void setReportOptions(ReportOptions reportOptions)
-	{
-		if (reportOptions != null)
-		{
-			this.reportOptions = customizeReportOptions(reportOptions);
-		}
-	}
-
-	/**
-	 *
-	 * @return opzioniReport
-	 */
-	public ReportOptions getReportOptions()
-	{
-		return this.reportOptions;
-	}
-
-	private ReportOptions reportOptions = new ReportOptions();
 
 }

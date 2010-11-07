@@ -14,7 +14,11 @@
  *     limitations under the License.
  */
 
-package net.digitstar.vanadio;
+package net.digitstar.vanadio.enums.builtin;
+
+import net.digitstar.vanadio.enums.Labels;
+
+import java.util.Locale;
 
 /**
  * Author: alx
@@ -22,42 +26,16 @@ package net.digitstar.vanadio;
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-public abstract class AbstractReportBase
-	implements ReportBase
-{
+public class BaseLabels extends Labels {
 
-	/**
-	 *
-	 * @param reportOptions opzioni del report
-	 * @return opzioniReport
-	 */
-	protected ReportOptions customizeReportOptions(ReportOptions reportOptions)
-	{
-		return reportOptions;
-	}
+    public static final Labels PAGE = new BaseLabels("Page {0}", "Pag. {0}")
+                                          .addLocalization(Locale.ITALIAN,"Pagina {0}", "Pag. {0}");
+    public static final Labels PAGE_TOTAL = new BaseLabels("Pag. {0} of {1}", "Pag. {0}/{1}");
+    public static final Labels PRINTED = new BaseLabels("Printed on: {0}", null)
+                                          .addLocalization(Locale.ITALIAN,"Stampato il: {0}", null);
 
 
-	/**
-	 *
-     * @param reportOptions opzioni del report
-	 */
-	public void setReportOptions(ReportOptions reportOptions)
-	{
-		if (reportOptions != null)
-		{
-			this.reportOptions = customizeReportOptions(reportOptions);
-		}
-	}
-
-	/**
-	 *
-	 * @return opzioniReport
-	 */
-	public ReportOptions getReportOptions()
-	{
-		return this.reportOptions;
-	}
-
-	private ReportOptions reportOptions = new ReportOptions();
-
+    private BaseLabels(String label, String abbreviation) {
+        super(label, abbreviation);
+    }
 }

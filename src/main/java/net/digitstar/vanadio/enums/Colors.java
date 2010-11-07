@@ -14,24 +14,26 @@
  *     limitations under the License.
  */
 
-package net.digitstar.vanadio;
+package net.digitstar.vanadio.enums;
 
-import java.io.OutputStream;
-import java.util.Map;
+import com.itextpdf.text.BaseColor;
 
 /**
  * Author: alx
- * Date: 7-nov-2010
+ * Date: 3-nov-2010
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-public interface ReportBase
-{
+public abstract class Colors {
+    private BaseColor color;
 
-    boolean execute(Map<String, String[]> parameters, OutputStream out)
-        throws Exception;
+    protected Colors(BaseColor color)
+    {
+        this.color = color;
+    }
 
-    void setReportOptions(ReportOptions reportOptions);
-
-    ReportOptions getReportOptions();
+    public final BaseColor getColor()
+    {
+        return color != null ? new BaseColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()) : null;
+    }
 }
