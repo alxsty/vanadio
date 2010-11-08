@@ -16,14 +16,27 @@
 
 package net.digitstar.vanadio.enums;
 
+import com.itextpdf.text.pdf.BaseFont;
+
 /**
  * Author: alx
  * Date: 3-nov-2010
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-public abstract class FontFamily
+public class FontFamily
 {
+
+    public static final FontFamily UNDEFINED = new FontFamily(null);
+    public static final FontFamily COURIER = new FontFamily(BaseFont.COURIER);
+    public static final FontFamily HELVETICA = new FontFamily(BaseFont.HELVETICA);
+    public static final FontFamily TIMES_ROMAN = new FontFamily(BaseFont.TIMES_ROMAN);
+    public static final FontFamily SYMBOL = new FontFamily(BaseFont.SYMBOL);
+    public static final FontFamily ZAPFDINGBATS = new FontFamily(BaseFont.ZAPFDINGBATS);
+    public static final FontFamily ARIAL = new FontFamily("Arial");
+
+    private static FontFamily _default = ARIAL;
+
     private String name = null;
 
 
@@ -40,10 +53,15 @@ public abstract class FontFamily
         return name;
     }
 
+    public static FontFamily setDefault(FontFamily _default)
+    {
+        FontFamily._default = _default;
+        return FontFamily._default;
+    }
 
     public static FontFamily getDefault()
     {
-        throw new RuntimeException("You must redefine the getDefault() in your claas.");
+        return _default;
     }
 }
 

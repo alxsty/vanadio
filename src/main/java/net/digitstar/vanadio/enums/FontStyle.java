@@ -22,7 +22,17 @@ package net.digitstar.vanadio.enums;
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-public abstract class FontStyle {
+public class FontStyle {
+
+
+    public static final FontStyle UNDEFINED = new FontStyle(-1);
+    public static final FontStyle NORMAL = new FontStyle(0);
+    public static final FontStyle  BOLD = new FontStyle(1);
+    public static final FontStyle  ITALIC = new FontStyle(2);
+    public static final FontStyle  UNDERLINE = new FontStyle(4);
+    public static final FontStyle  STRIKETHRU = new FontStyle(8);
+    public static final FontStyle  BOLDITALIC = new FontStyle(BOLD.getValue() | ITALIC.getValue());
+
     private int value = -1;
 
     protected FontStyle(int value)
@@ -33,5 +43,16 @@ public abstract class FontStyle {
     public final int getValue()
     {
         return value;
+    }
+
+    public static FontStyle getStyle(FontStyle ... styles)
+    {
+        int style = NORMAL.getValue();
+        for (FontStyle item : styles)
+        {
+            if (item != null)
+                style |= item.getValue();
+        }
+        return new FontStyle(style);
     }
 }

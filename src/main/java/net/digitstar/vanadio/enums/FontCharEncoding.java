@@ -16,22 +16,29 @@
 
 package net.digitstar.vanadio.enums;
 
+import com.itextpdf.text.pdf.BaseFont;
+
 /**
  * Author: alx
  * Date: 3-nov-2010
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-public abstract class FontCharEncoding
+public class FontCharEncoding
 {
-    private String name = null;
 
+    public static final FontCharEncoding CP1250 = new FontCharEncoding("Cp1250");            // europa centrale(null);
+    public static final FontCharEncoding CP1252 = new FontCharEncoding("Cp1252");            // europa occidentale
+    public static final FontCharEncoding UTF8 = new FontCharEncoding(BaseFont.IDENTITY_H);  // unicode
+
+    private static FontCharEncoding _default = UTF8;
+
+    private String name = null;
 
     protected FontCharEncoding(String name)
     {
         this.name = name;
     }
-
 
 
     public final String getName()
@@ -40,10 +47,14 @@ public abstract class FontCharEncoding
         return name;
     }
 
-
+    public static FontCharEncoding setDefault(FontCharEncoding _default )
+    {
+        FontCharEncoding._default = _default;
+        return FontCharEncoding._default;
+    }
     public static FontCharEncoding getDefault()
     {
-        throw new RuntimeException("You must redefine the getDefault() in your claas.");
+        return _default;
     }
 }
 
