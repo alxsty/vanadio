@@ -33,6 +33,10 @@ public class Colors {
 
     private BaseColor color;
 
+    Colors()
+    {
+        this(null);
+    }
     protected Colors(BaseColor color)
     {
         setColor(color);

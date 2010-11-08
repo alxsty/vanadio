@@ -16,6 +16,8 @@
 
 package net.digitstar.vanadio.enums;
 
+import net.digitstar.vanadio.enums.core.LocalizableEnum;
+
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.DecimalFormat;
@@ -32,7 +34,7 @@ import java.util.Locale;
  *
  * Vanadio a useful pdf report generator code driven
  */
-public class Formats extends LocalizableEnum<Format>{
+public class Formats extends LocalizableEnum<Format> {
 
     public static final Formats NUMBER = new Formats(-1, false)
                                             .addLocalization(Locale.ITALIAN,-1,false);
@@ -76,7 +78,8 @@ public class Formats extends LocalizableEnum<Format>{
     public static final Formats DATETITLE= new Formats("{0} - {1}",false);
 
 
-    private Formats()
+
+    Formats()
     {
         super(Format.class);
     }

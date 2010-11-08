@@ -20,7 +20,6 @@ package net.digitstar.vanadio.enums;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.framework.TestCase;
-import net.digitstar.vanadio.enums.builtin.BaseFontFamily;
 
 /**
  * FontFamily Tester.
@@ -48,7 +47,7 @@ public class FontFamilyTest extends TestCase {
      *
      */
     public void testGetName() throws Exception {
-        String s1 = BaseFontFamily.COURIER.getName();
+        String s1 = FontFamily.COURIER.getName();
         String s2 = TestCustomFontFamily.FAMILYA.getName();
         assert(!s1.equals(s2));
     }
@@ -59,7 +58,7 @@ public class FontFamilyTest extends TestCase {
      *
      */
     public void testGetDefaultFontFamily() throws Exception {
-        FontFamily f1 = BaseFontFamily.getDefault();
+        FontFamily f1 = FontFamily.getDefault();
         FontFamily f2 = TestCustomFontFamily.getDefault();
 
        assertNotSame(f1,f2);

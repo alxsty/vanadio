@@ -37,9 +37,12 @@ public class FontFamily
 
     private static FontFamily _default = ARIAL;
 
-    private String name = null;
+    private String name;
 
-
+    FontFamily()
+    {
+        this(null);
+    }
     protected FontFamily(String name)
     {
         this.name = name;
