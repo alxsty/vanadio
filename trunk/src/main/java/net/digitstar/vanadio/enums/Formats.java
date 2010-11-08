@@ -32,10 +32,49 @@ import java.util.Locale;
  *
  * Vanadio a useful pdf report generator code driven
  */
-public abstract class Formats extends LocalizableEnum<Format>{
+public class Formats extends LocalizableEnum<Format>{
 
+    public static final Formats NUMBER = new Formats(-1, false)
+                                            .addLocalization(Locale.ITALIAN,-1,false);
+    public static final Formats INTEGER = new Formats(0, true)
+                                            .addLocalization(Locale.ITALIAN,0,true);
+    public static final Formats FRACTIONAL = new Formats( 2, true)
+                                            .addLocalization(Locale.ITALIAN,2,true);
+    public static final Formats DATE = new Formats("MM/dd/yyyy")
+                                            .addLocalization(Locale.ITALIAN,"dd/MM/yyyy");
+    public static final Formats DATEEXTENDED = new Formats( "MMM d yyyy")
+                                            .addLocalization(Locale.ITALIAN,"d MMM yyyy");
 
-    private Format format;
+    public static final Formats YEARDATE = new Formats("yyyy");
+    public static final Formats YEARDATE2 = new Formats("yy");
+    public static final Formats DAYDATE = new Formats("d");
+    public static final Formats DAYDATE2 = new Formats("dd");
+    public static final Formats MONTHDATE = new Formats("M");
+    public static final Formats MONTHDATE2 = new Formats("MM");
+    public static final Formats MONTHDATE3 = new Formats("MMM")
+                                            .addLocalization(Locale.ITALIAN,"MMM");
+    public static final Formats MONTHDATEFULL = new Formats("MMMM")
+                                            .addLocalization(Locale.ITALIAN,"MMMM");
+    public static final Formats WEEKDATE3 = new Formats("EEE")
+                                             .addLocalization(Locale.ITALIAN,"EEE");
+    public static final Formats WEEKDATEFULL = new Formats("EEEE")
+                                            .addLocalization(Locale.ITALIAN,"EEEE");
+
+    public static final Formats DATETIME = new Formats("MM/dd/yyyy HH:mm:ss")
+                                            .addLocalization(Locale.ITALIAN,"dd/MM/yyyy HH:mm:ss");
+
+    public static final Formats TIME = new Formats("HH:mm:ss");
+
+    public static final Formats HOUR = new Formats("H");
+    public static final Formats HOUR2 = new Formats("HH");
+    public static final Formats MINUTE = new Formats("m");
+    public static final Formats MINUTE2 = new Formats("mm");
+    public static final Formats SECOND = new Formats("s");
+    public static final Formats SECOND2 = new Formats("ss");
+    public static final Formats HOURMINUTES = new Formats("HH:mm");
+
+    public static final Formats DATETITLE= new Formats("{0} - {1}",false);
+
 
     private Formats()
     {
@@ -121,7 +160,7 @@ public abstract class Formats extends LocalizableEnum<Format>{
         if(arguments != null)
         {
             Format format = getFormat(locale);
-            if(!(this.format instanceof MessageFormat))
+            if(!(format instanceof MessageFormat))
             {
                 if(arguments.length > 0)
                 {

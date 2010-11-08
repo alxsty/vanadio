@@ -19,6 +19,10 @@ package net.digitstar.vanadio.enums;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.pdf.BaseFont;
+import net.digitstar.vanadio.enums.builtin.BaseFontCharEncoding;
+import net.digitstar.vanadio.enums.builtin.BaseFontFamily;
+import net.digitstar.vanadio.enums.builtin.BaseFontStyle;
 
 /**
  * Author: alx
@@ -26,7 +30,37 @@ import com.itextpdf.text.FontFactory;
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-public abstract class FontType {
+public class FontType {
+
+
+    public static final FontType NORMAL = new FontType(BaseFontFamily.getDefault(),
+                                                        BaseFontCharEncoding.getDefault(),
+                                                        BaseFont.EMBEDDED, 7.0f, BaseFontStyle.UNDEFINED, null);
+    public static final FontType HEADERFOOTER = new FontType(BaseFontFamily.getDefault(),
+                                                        BaseFontCharEncoding.getDefault(),
+                                                        BaseFont.EMBEDDED, 6.0f, BaseFontStyle.UNDEFINED, null);
+    public static final FontType HEAD = new FontType(BaseFontFamily.getDefault(),
+                                                        BaseFontCharEncoding.getDefault(),
+                                                        BaseFont.EMBEDDED, 8.0f, BaseFontStyle.BOLD, null);
+    public static final FontType TOTAL = new FontType(BaseFontFamily.getDefault(),
+                                                        BaseFontCharEncoding.getDefault(),
+                                                        BaseFont.EMBEDDED, 7.0f, BaseFontStyle.BOLD, null);
+    public static final FontType TITLE = new FontType(BaseFontFamily.getDefault(),
+                                                          BaseFontCharEncoding.getDefault(),
+                                                          BaseFont.EMBEDDED, 11.0f, BaseFontStyle.BOLD, null);
+    public static final FontType TITLE9 = new FontType(BaseFontFamily.getDefault(),
+                                                          BaseFontCharEncoding.getDefault(),
+                                                          BaseFont.EMBEDDED, 9.0f, BaseFontStyle.UNDEFINED, null);
+    public static final FontType TITLE12 = new FontType(BaseFontFamily.getDefault(),
+                                                          BaseFontCharEncoding.getDefault(),
+                                                          BaseFont.EMBEDDED, 12.0f, BaseFontStyle.BOLD, null);
+    public static final FontType TITLE16 = new FontType(BaseFontFamily.getDefault(),
+                                                          BaseFontCharEncoding.getDefault(),
+                                                          BaseFont.EMBEDDED, 16.0f, BaseFontStyle.ITALIC, null);
+    public static final FontType TITLE20 = new FontType(BaseFontFamily.getDefault(),
+                                                          BaseFontCharEncoding.getDefault(),
+                                                          BaseFont.EMBEDDED, 20.0f, BaseFontStyle.BOLD, null);
+
     private Font font;
 
 
@@ -44,19 +78,19 @@ public abstract class FontType {
 
     public final Font getFont()
     {
-        return font;
+        return new Font (this.font);
     }
 
     public final Font getFont(FontStyle style)
     {
-        Font f = new Font(this.font);
+        Font f = getFont();
         f.setStyle(style.getValue());
         return f;
     }
 
     public final Font getFont(float size)
     {
-        Font f = new Font(this.font);
+        Font f = getFont();
         f.setSize(size);
         return f;
     }

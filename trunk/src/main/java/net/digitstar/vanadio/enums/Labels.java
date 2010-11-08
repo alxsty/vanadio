@@ -27,7 +27,15 @@ import java.util.Map;
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-public abstract class Labels extends LocalizableEnum<Label>{
+public class Labels extends LocalizableEnum<Label>{
+
+    public static final Labels PAGE = new Labels("Page {0}", "Pag. {0}")
+                                          .addLocalization(Locale.ITALIAN,"Pagina {0}", "Pag. {0}");
+    public static final Labels PAGE_TOTAL = new Labels("Pag. {0} of {1}", "Pag. {0}/{1}");
+    public static final Labels PRINTED = new Labels("Printed on: {0}", null)
+                                          .addLocalization(Locale.ITALIAN,"Stampato il: {0}", null);
+
+
     private static final String WORD_SEP = " ";
     private static final String EMPTY = "";
 

@@ -17,6 +17,8 @@
 package net.digitstar.vanadio.enums;
 
 import com.itextpdf.text.BaseColor;
+import net.digitstar.vanadio.enums.builtin.BaseColors;
+import net.digitstar.vanadio.enums.builtin.BaseFontType;
 import net.digitstar.vanadio.styles.CellStyle;
 import net.digitstar.vanadio.ReportOptions;
 
@@ -26,13 +28,31 @@ import net.digitstar.vanadio.ReportOptions;
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-public abstract class CellStyles
+public class CellStyles
 {
+    public static final CellStyles HEAD = new CellStyles(new CellStyle().setHorizAlign(CellStyle.Align.CENTER)
+        .setVertAlign(CellStyle.Align.MIDDLE)
+        .setCellFont(BaseFontType.HEAD.getFont())
+        .setBorder(CellStyle.Border.BOX)
+        .setBackgroundColor(BaseColors.HEAD.getColor())
+    );
+    public static final CellStyles TOTAL =  new CellStyles(new CellStyle().setHorizAlign(CellStyle.Align.CENTER)
+        .setVertAlign(CellStyle.Align.MIDDLE)
+        .setCellFont(BaseFontType.TOTAL.getFont())
+        .setBorder(CellStyle.Border.BOX)
+    );
+    public static final CellStyles ROW = new CellStyles(new CellStyle().setVertAlign(CellStyle.Align.MIDDLE)
+        .setCellFont(BaseFontType.NORMAL.getFont())
+        .setBorder(CellStyle.Border.BOX)
+        .setAlternateColor(true)
+        .setBackgroundColor(BaseColors.EVENROW.getColor()));
+
+
     private CellStyle style;
 
     protected CellStyles(CellStyle style)
     {
-        this.style = style;
+        setStyle(style);
     }
 
     public final CellStyle getStyle()
@@ -40,9 +60,15 @@ public abstract class CellStyles
         return new CellStyle(style);
     }
 
+    public final CellStyles setStyle(CellStyle style)
+    {
+        this.style = style;
+        return this;
+    }
+
     public static CellStyle getRowStyle(ReportOptions reportOptions, int row)
     {
-        CellStyle cell = getDefault().getStyle();
+        CellStyle cell = ROW.getStyle();
         if(reportOptions != null)
         {
             if(reportOptions.isAlternateRow() && row >= 0)
@@ -55,10 +81,4 @@ public abstract class CellStyles
 
         return cell;
     }
-
-    public static CellStyles getDefault()
-    {
-        throw new RuntimeException("You must redefine the getDefault() in your claas.");
-    }
-
 }

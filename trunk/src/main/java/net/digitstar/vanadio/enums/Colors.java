@@ -24,14 +24,25 @@ import com.itextpdf.text.BaseColor;
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-public abstract class Colors {
+public class Colors {
+
+    public static final Colors HEAD = new Colors(new BaseColor(0.7f, 0.7f, 0.7f));
+    public static final Colors ODDROW = new Colors(new BaseColor(0.8f, 0.8f, 0.8f));
+    public static final Colors  TITLE = new Colors(new BaseColor(0.8f, 0.8f, 0.8f));
+    public static final Colors  EVENROW = new Colors(null);
+
     private BaseColor color;
 
     protected Colors(BaseColor color)
     {
-        this.color = color;
+        setColor(color);
     }
 
+    public final Colors setColor(BaseColor color)
+    {
+        this.color = color;
+        return this;
+    }
     public final BaseColor getColor()
     {
         return color != null ? new BaseColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()) : null;
