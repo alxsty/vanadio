@@ -17,7 +17,8 @@
 package net.digitstar.vanadio;
 
 import com.itextpdf.text.BaseColor;
-import net.digitstar.vanadio.styles.Styles;
+
+import net.digitstar.vanadio.enums.Colors;
 
 /**
  * Author: alx
@@ -71,8 +72,8 @@ public class ReportOptions
 			.setPageType(PageType.TYPE_AUTO)
 			.setPageOrientation(PageOrientation.PAGE_VERTICAL)
 			.setAlternateRow(true)
-			.setEvenBackColor(Styles.Colors.EVENROW.getColor())
-			.setOddBackColor(Styles.Colors.ODDROW.getColor());
+			.setEvenBackColor(Colors.EVENROW.getColor())
+			.setOddBackColor(Colors.ODDROW.getColor());
 	}
 
 

@@ -31,9 +31,14 @@ import com.itextpdf.text.pdf.PdfPageEvent;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfWriter;
+
+import net.digitstar.vanadio.enums.FontType;
+import net.digitstar.vanadio.enums.Formats;
+import net.digitstar.vanadio.enums.Labels;
+
 import net.digitstar.vanadio.styles.CellStyle;
-import net.digitstar.vanadio.styles.Styles;
 import net.digitstar.vanadio.styles.TableStyle;
+
 import net.digitstar.vanadio.tables.Group;
 import net.digitstar.vanadio.tables.Table;
 import net.digitstar.vanadio.tables.TableMap;
@@ -464,22 +469,22 @@ public abstract class AbstractReportPdf<E>
        if (reportOptions.isShowPageNumberIfOnePage() || (!reportOptions.isShowPageNumberIfOnePage() &&  pageTotal > 1))
        {
            right = reportOptions.isShowPageTotal() ?
-                   Styles.Labels.PAGE_TOTAL.getEtichettaFormatta(page,pageTotal) :
-                   Styles.Labels.PAGE.getEtichettaFormatta(page);
+                   Labels.PAGE_TOTAL.getLabelFormatted(page,pageTotal) :
+                   Labels.PAGE.getLabelFormatted(page);
        }
 
-	    def.setFixedHeight(computeHeight(Styles.FontType.HEADERFOOTER.getFont()));
+	    def.setFixedHeight(computeHeight(FontType.HEADERFOOTER.getFont()));
 
        def.setBorder(CellStyle.Border.NONE.getValue());
        if (reportOptions.isUseHrRuler())
            def.setBorder(CellStyle.Border.BOTTOM.getValue());
 
        def.setHorizontalAlignment(CellStyle.Align.LEFT.getValue());
-       header.addCell(new Phrase(left,Styles.FontType.HEADERFOOTER.getFont()));
+       header.addCell(new Phrase(left,FontType.HEADERFOOTER.getFont()));
        def.setHorizontalAlignment(CellStyle.Align.CENTER.getValue());
-       header.addCell(new Phrase(center,Styles.FontType.HEADERFOOTER.getFont()));
+       header.addCell(new Phrase(center,FontType.HEADERFOOTER.getFont()));
        def.setHorizontalAlignment(CellStyle.Align.RIGHT.getValue());
-       header.addCell(new Phrase(right,Styles.FontType.HEADERFOOTER.getFont()));
+       header.addCell(new Phrase(right,FontType.HEADERFOOTER.getFont()));
        return header;
     }
 
@@ -492,20 +497,20 @@ public abstract class AbstractReportPdf<E>
        String center = "";
        String right = "";
 
-       def.setFixedHeight(computeHeight(Styles.FontType.HEADERFOOTER.getFont()));
+       def.setFixedHeight(computeHeight(FontType.HEADERFOOTER.getFont()));
        def.setBorder(CellStyle.Border.NONE.getValue());
        if (reportOptions.isUseHrRuler())
            def.setBorder(CellStyle.Border.TOP.getValue());
 
         if (reportOptions.isShowPrintDate())
-            right = Styles.Labels.PRINTED.getEtichettaFormatta(getFmtDataOra().format(new Date()));
+            right = Labels.PRINTED.getLabelFormatted(getDateTimeFormat().format(new Date()));
 
 	    def.setHorizontalAlignment(CellStyle.Align.LEFT.getValue());
-	    footer.addCell(new Phrase(left, Styles.FontType.HEADERFOOTER.getFont()));
+	    footer.addCell(new Phrase(left, FontType.HEADERFOOTER.getFont()));
 	    def.setHorizontalAlignment(CellStyle.Align.CENTER.getValue());
-	    footer.addCell(new Phrase(center,Styles.FontType.HEADERFOOTER.getFont()));
+	    footer.addCell(new Phrase(center,FontType.HEADERFOOTER.getFont()));
 	    def.setHorizontalAlignment(CellStyle.Align.RIGHT.getValue());
-	    footer.addCell(new Phrase(right,Styles.FontType.HEADERFOOTER.getFont()));
+	    footer.addCell(new Phrase(right,FontType.HEADERFOOTER.getFont()));
        return footer;
     }
 
@@ -538,54 +543,54 @@ public abstract class AbstractReportPdf<E>
 	}
 
 
-	public Font getFont()
+	protected Font getFont()
 	{
-		return Styles.FontType.TITLE.getFont();
+		return FontType.NORMAL.getFont();
 	}
 
-	public Font getFontTitolo()
+	protected Font getFontTitle()
 	{
-		return Styles.FontType.HEAD.getFont();
+		return FontType.TITLE.getFont();
 	}
 
-	public Font getFontCorpo()
+	protected Font getFontHead()
 	{
-		return Styles.FontType.NORMAL.getFont();
+		return FontType.HEAD.getFont();
 	}
 
-	public Format getNfGenerico()
+	protected Format getGenNumberFormat()
 	{
-		return Styles.Formats.NUMERO.getFormato();
+        return Formats.NUMBER.getFormat();
 	}
 
-	public Format getNfInteri()
+	protected Format getIntNunberFormat()
 	{
-		return Styles.Formats.INTERO.getFormato();
+        return Formats.INTEGER.getFormat();
 	}
 
-	public Format getNfVirgola()
+	protected Format getFractNunberFormat()
 	{
-		return Styles.Formats.VIRGOLA.getFormato();
+        return Formats.FRACTIONAL.getFormat();
 	}
 
-	public Format getFmtData()
+	protected Format getDateFormat()
 	{
-		return Styles.Formats.DATA.getFormato();
+        return Formats.DATE.getFormat();
 	}
 
-	public Format getFmtOra()
+	protected Format getHourFormat()
 	{
-		return Styles.Formats.ORA.getFormato();
+        return Formats.HOUR2.getFormat();
 	}
 
-	public Format getFmtOraMinuti()
+	protected Format getHourMinutesFormat()
 	{
-		return Styles.Formats.ORAMINUTI.getFormato();
+        return Formats.HOURMINUTES.getFormat();
 	}
 
-	public Format getFmtDataOra()
+	protected Format getDateTimeFormat()
 	{
-		return Styles.Formats.DATAORA.getFormato();
+		return Formats.DATETIME.getFormat();
 	}
 
 }

@@ -21,6 +21,7 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPTable;
+
 import net.digitstar.vanadio.enums.FontType;
 
 import java.text.Format;
@@ -252,7 +253,7 @@ public class CellStyle
 				return -1f;
 			}
 		};
-		cellFont = Styles.FontType.NORMAL.getFont();
+		cellFont = FontType.NORMAL.getFont();
 
 		alternateColor = false;
 		format = null;

@@ -18,11 +18,13 @@ package net.digitstar.vanadio.helpers;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.Image;
+
+import net.digitstar.vanadio.enums.Formats;
 import net.digitstar.vanadio.styles.Alignment;
-import net.digitstar.vanadio.styles.Styles;
 import net.digitstar.vanadio.styles.CellStyle;
 import net.digitstar.vanadio.styles.TableStyle;
 
+import java.math.BigDecimal;
 import java.text.Format;
 import java.util.Date;
 import java.util.Arrays;
@@ -55,11 +57,11 @@ public final class PdfHelper
 	{
 		if (fmt == null)
 			if(Date.class.isAssignableFrom(clazz))
-				fmt = Styles.Formats.DATA.getFormato();
-			else if(Double.class.isAssignableFrom(clazz) || Float.class.isAssignableFrom(clazz))
-				fmt = Styles.Formats.VIRGOLA.getFormato();
+				fmt = Formats.DATE.getFormat();
+			else if(Double.class.isAssignableFrom(clazz) || Float.class.isAssignableFrom(clazz) || BigDecimal.class.isAssignableFrom(clazz))
+				fmt = Formats.FRACTIONAL.getFormat();
 			else if(Number.class.isAssignableFrom(clazz))
-				fmt = Styles.Formats.INTERO.getFormato();
+				fmt = Formats.INTEGER.getFormat();
 
 		return fmt;
 	}
