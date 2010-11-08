@@ -27,10 +27,6 @@ public class TestCustomFontFamily extends FontFamily {
     public static final FontFamily FAMILYA = new TestCustomFontFamily("Font A");
     public static final FontFamily FAMILYB = new TestCustomFontFamily("Font B");
 
-    static
-    {
-        _DEFAULT = FAMILYA;
-    }
     private TestCustomFontFamily(String name) {
         super(name);
     }
