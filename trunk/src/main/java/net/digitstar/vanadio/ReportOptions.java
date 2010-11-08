@@ -20,6 +20,8 @@ import com.itextpdf.text.BaseColor;
 
 import net.digitstar.vanadio.enums.Colors;
 
+import java.util.Locale;
+
 /**
  * Author: alx
  * Date: 7-nov-2010
@@ -57,6 +59,7 @@ public class ReportOptions
 
 	private PageType pageType;                 //  formato pag. (A4, A3, AUTO(
 	private PageOrientation pageOrientation;   //  orienamento pagina (VERT., ORIZ)
+    private Locale localization;               //  Locale for display formats and text labels
 
 	public ReportOptions()
 	{
@@ -73,7 +76,8 @@ public class ReportOptions
 			.setPageOrientation(PageOrientation.PAGE_VERTICAL)
 			.setAlternateRow(true)
 			.setEvenBackColor(Colors.EVENROW.getColor())
-			.setOddBackColor(Colors.ODDROW.getColor());
+			.setOddBackColor(Colors.ODDROW.getColor())
+            .setLocalization(Locale.getDefault());
 	}
 
 
@@ -231,4 +235,15 @@ public class ReportOptions
 		this.evenBackColor = evenBackColor;
 		return this;
 	}
+
+    public Locale getLocalization()
+    {
+        return localization;
+    }
+
+    public ReportOptions setLocalization(Locale localization)
+    {
+        this.localization = localization;
+        return this;
+    }
 }

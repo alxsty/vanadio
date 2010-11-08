@@ -35,6 +35,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import net.digitstar.vanadio.enums.FontType;
 import net.digitstar.vanadio.enums.Formats;
 import net.digitstar.vanadio.enums.Labels;
+import net.digitstar.vanadio.enums.core.LocalizableEnum;
 
 import net.digitstar.vanadio.styles.CellStyle;
 import net.digitstar.vanadio.styles.TableStyle;
@@ -50,6 +51,7 @@ import java.io.OutputStream;
 import java.text.Format;
 
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -143,9 +145,16 @@ public abstract class AbstractReportPdf<E>
 	{
 
         setReportOptions(reportOptions);
-        
+
+        initLocale(getReportOptions().getLocalization());
+
 		setDtoClass(dtoClass);
 	}
+
+    private void initLocale(Locale localization)
+    {
+        LocalizableEnum.setLocaleDefault(localization);
+    }
 
     protected void openDocument(Document document)
 	{

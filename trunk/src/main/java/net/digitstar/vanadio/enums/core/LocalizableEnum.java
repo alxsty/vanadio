@@ -28,6 +28,7 @@ import java.util.Map;
  */
 public abstract class LocalizableEnum<E>
 {
+    private static Locale defaultlocale = null;
     private E empty;
     private final Map<Locale,E> values = new HashMap<Locale,E>();
 
@@ -58,8 +59,16 @@ public abstract class LocalizableEnum<E>
 
     protected static Locale getLocale(Locale locale)
     {
-        return locale == null ? Locale.getDefault() : locale;
+        return locale == null ? getLocaleDefault() : locale;
     }
 
+    public static Locale getLocaleDefault()
+    {
+        return defaultlocale != null ? defaultlocale : Locale.getDefault();
+    }
+    public static void setLocaleDefault(Locale locale)
+    {
+        defaultlocale = locale;
+    }
 }
 
