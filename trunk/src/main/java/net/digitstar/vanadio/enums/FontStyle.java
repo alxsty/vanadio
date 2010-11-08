@@ -33,8 +33,12 @@ public class FontStyle {
     public static final FontStyle  STRIKETHRU = new FontStyle(8);
     public static final FontStyle  BOLDITALIC = new FontStyle(BOLD.getValue() | ITALIC.getValue());
 
-    private int value = -1;
+    private int value;
 
+    FontStyle()
+    {
+        this(-1);
+    }
     protected FontStyle(int value)
     {
         this.value = value;

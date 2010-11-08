@@ -33,8 +33,12 @@ public class FontCharEncoding
 
     private static FontCharEncoding _default = UTF8;
 
-    private String name = null;
+    private String name;
 
+    FontCharEncoding()
+    {
+        this(null);
+    }
     protected FontCharEncoding(String name)
     {
         this.name = name;

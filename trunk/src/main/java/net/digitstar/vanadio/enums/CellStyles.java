@@ -17,8 +17,6 @@
 package net.digitstar.vanadio.enums;
 
 import com.itextpdf.text.BaseColor;
-import net.digitstar.vanadio.enums.builtin.BaseColors;
-import net.digitstar.vanadio.enums.builtin.BaseFontType;
 import net.digitstar.vanadio.styles.CellStyle;
 import net.digitstar.vanadio.ReportOptions;
 
@@ -32,24 +30,28 @@ public class CellStyles
 {
     public static final CellStyles HEAD = new CellStyles(new CellStyle().setHorizAlign(CellStyle.Align.CENTER)
         .setVertAlign(CellStyle.Align.MIDDLE)
-        .setCellFont(BaseFontType.HEAD.getFont())
+        .setCellFont(FontType.HEAD.getFont())
         .setBorder(CellStyle.Border.BOX)
-        .setBackgroundColor(BaseColors.HEAD.getColor())
+        .setBackgroundColor(Colors.HEAD.getColor())
     );
     public static final CellStyles TOTAL =  new CellStyles(new CellStyle().setHorizAlign(CellStyle.Align.CENTER)
         .setVertAlign(CellStyle.Align.MIDDLE)
-        .setCellFont(BaseFontType.TOTAL.getFont())
+        .setCellFont(FontType.TOTAL.getFont())
         .setBorder(CellStyle.Border.BOX)
     );
     public static final CellStyles ROW = new CellStyles(new CellStyle().setVertAlign(CellStyle.Align.MIDDLE)
-        .setCellFont(BaseFontType.NORMAL.getFont())
+        .setCellFont(FontType.NORMAL.getFont())
         .setBorder(CellStyle.Border.BOX)
         .setAlternateColor(true)
-        .setBackgroundColor(BaseColors.EVENROW.getColor()));
+        .setBackgroundColor(Colors.EVENROW.getColor()));
 
 
     private CellStyle style;
 
+    CellStyles()
+    {
+        this(null);
+    }
     protected CellStyles(CellStyle style)
     {
         setStyle(style);

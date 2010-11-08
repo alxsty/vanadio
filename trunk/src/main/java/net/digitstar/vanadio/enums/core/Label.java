@@ -14,7 +14,7 @@
  *     limitations under the License.
  */
 
-package net.digitstar.vanadio.enums;
+package net.digitstar.vanadio.enums.core;
 
 /**
  * Author: alx
@@ -22,25 +22,25 @@ package net.digitstar.vanadio.enums;
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-class Label
+public class Label
 {
     private String label;
     private String abbreviation;
 
-    Label()
+    public Label()
     {
         this(null,null);
     }
-    Label(String label, String abbreviation) {
+    public Label(String label, String abbreviation) {
         this.label = label;
         this.abbreviation = abbreviation;
     }
 
-    String getLabel() {
+    public String getLabel() {
         return label;
     }
 
-    String getAbbreviation() {
+    public String getAbbreviation() {
         return abbreviation;
     }
 }

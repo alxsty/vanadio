@@ -16,10 +16,11 @@
 
 package net.digitstar.vanadio.enums;
 
+import net.digitstar.vanadio.enums.core.Label;
+import net.digitstar.vanadio.enums.core.LocalizableEnum;
+
 import java.text.MessageFormat;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * Author: alx
@@ -27,7 +28,7 @@ import java.util.Map;
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-public class Labels extends LocalizableEnum<Label>{
+public class Labels extends LocalizableEnum<Label> {
 
     public static final Labels PAGE = new Labels("Page {0}", "Pag. {0}")
                                           .addLocalization(Locale.ITALIAN,"Pagina {0}", "Pag. {0}");
@@ -39,9 +40,13 @@ public class Labels extends LocalizableEnum<Label>{
     private static final String WORD_SEP = " ";
     private static final String EMPTY = "";
 
-    protected Labels(Locale locale,String label, String abbreviation)
+    Labels()
     {
         super(Label.class);
+    }
+    protected Labels(Locale locale,String label, String abbreviation)
+    {
+        this();
         addLocalization(locale,label,abbreviation);
     }
 

@@ -14,7 +14,7 @@
  *     limitations under the License.
  */
 
-package net.digitstar.vanadio.enums;
+package net.digitstar.vanadio.enums.core;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -26,7 +26,7 @@ import java.util.Map;
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-abstract class LocalizableEnum<E>
+public abstract class LocalizableEnum<E>
 {
     private E empty;
     private final Map<Locale,E> values = new HashMap<Locale,E>();
@@ -56,7 +56,7 @@ abstract class LocalizableEnum<E>
         return e != null  ? e : empty;
     }
 
-    static Locale getLocale(Locale locale)
+    protected static Locale getLocale(Locale locale)
     {
         return locale == null ? Locale.getDefault() : locale;
     }

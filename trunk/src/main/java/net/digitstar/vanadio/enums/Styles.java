@@ -14,25 +14,27 @@
  *     limitations under the License.
  */
 
-package net.digitstar.vanadio.enums.builtin;
-
-import com.itextpdf.text.BaseColor;
-import net.digitstar.vanadio.enums.Colors;
+package net.digitstar.vanadio.enums;
 
 /**
  * Author: alx
- * Date: 3-nov-2010
+ * Date: 8-nov-2010
  * <p/>
  * Vanadio a useful pdf report generator code driven
  */
-public class BaseColors extends Colors {
+public final class Styles
+{
+    public static final CellStyles CellStyles = new CellStyles();
 
-    	public static final Colors HEAD = new BaseColors(new BaseColor(0.7f, 0.7f, 0.7f));
-		public static final Colors ODDROW = new BaseColors(new BaseColor(0.8f, 0.8f, 0.8f));
-		public static final Colors  TITLE = new BaseColors(new BaseColor(0.8f, 0.8f, 0.8f));
-		public static final Colors  EVENROW = new BaseColors(null);
+    public static final Colors Colors = new Colors();
 
-    private BaseColors(BaseColor color) {
-        super(color);
-    }
+    public static final FontCharEncoding FontCharEncoding = new FontCharEncoding();
+    public static final FontFamily FontFamily = new FontFamily();
+    public static final FontStyle FontStyle = new FontStyle();
+    public static final FontType FontType = new FontType();
+
+    public static final Formats Formats = new Formats();
+    public static final Labels Labels = new Labels();
+
+    private Styles() {/* do not instanziate */}
 }
