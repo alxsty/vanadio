@@ -136,6 +136,10 @@ public abstract class AbstractReportPdf<E>
         return tables;
     }
 
+    public AbstractReportPdf()
+    {
+        this(null);
+    }
     public AbstractReportPdf(Class<E> dtoClass)
 	{
 		this(dtoClass, null);
@@ -151,9 +155,14 @@ public abstract class AbstractReportPdf<E>
 		setDtoClass(dtoClass);
 	}
 
-    private void initLocale(Locale localization)
+    protected Document initDocument(OutputStream out)
+        throws Exception
     {
-        LocalizableEnum.setLocaleDefault(localization);
+        FontFactory.registerDirectories();
+        Document document = new Document();
+        PdfWriter.getInstance(document, out).setPageEvent(this);
+        openDocument(document);
+        return document;
     }
 
     protected void openDocument(Document document)
@@ -268,15 +277,6 @@ public abstract class AbstractReportPdf<E>
 	}
 
 
-	protected void tableCompleted(String tableName)
-	{
-		Table t = getTable(tableName);
-		if(t != null)
-		{
-			t.setCompleted();
-		}
-	}
-
 	protected PdfPCell addTable(String tableName, Object content, CellStyle style)
 	{
 		return getTables().addCell(tableName, content, style);
@@ -286,6 +286,15 @@ public abstract class AbstractReportPdf<E>
 	{
 		return getTables().getTable(tableName);
 	}
+
+    protected void tableCompleted(String tableName)
+    {
+        Table t = getTable(tableName);
+        if(t != null)
+        {
+            t.setCompleted();
+        }
+    }
 
 	protected AbstractReportPdf addGroup(String field)
 	{
@@ -452,11 +461,6 @@ public abstract class AbstractReportPdf<E>
 		return ok;
 	}
 
-	protected void preProcessData(ReportOptions reportOptions, Document document, List<E> list, Map<String, String[]> parameters, OutputStream out)
-	{
-		/*to override if necessary*/
-	}
-
 	private void processGroups(Document document, E item, Map<String, String[]> parameters, OutputStream out)
 		throws Exception
 	{
@@ -531,7 +535,8 @@ public abstract class AbstractReportPdf<E>
 
     protected abstract Collection<E> retrieveData(ReportOptions reportOptions, Map<String, String[]> parameters, E eb)
         throws Exception;
-
+    protected abstract void preProcessData(ReportOptions reportOptions, Document document, List<E> list, Map<String, String[]> parameters, OutputStream out)
+        throws Exception;
     protected abstract boolean beforeProcessRow(ReportOptions reportOptions, Document document, E eb, Map<String, String[]> parameters, OutputStream out)
 		throws Exception;
 
@@ -540,16 +545,6 @@ public abstract class AbstractReportPdf<E>
 
 	protected abstract boolean processRow(ReportOptions reportOptions, Document document, E item, Map<String, String[]> parameters, OutputStream out)
 		throws Exception;
-
-	protected Document initDocument(OutputStream out)
-		throws Exception
-	{
-        FontFactory.registerDirectories();
-		Document document = new Document();
-		PdfWriter.getInstance(document, out).setPageEvent(this);
-		openDocument(document);
-		return document;
-	}
 
 
 	protected Font getFont()

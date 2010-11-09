@@ -30,7 +30,9 @@ import java.util.Locale;
  */
 public class ReportOptions
 {
-
+    /**
+     * Page format
+     */
 	enum PageType
 	{
 		TYPE_AUTO,
@@ -38,27 +40,33 @@ public class ReportOptions
 		TYPE_A3
 	}
 
+    /**
+     * Page orientation
+     */
 	enum PageOrientation
 	{
-		PAGE_VERTICAL,
+        PAGE_AUTO,
+        PAGE_VERTICAL,
 		PAGE_HORIZONTAL
 	}
 
-	private boolean showHeader;                //  visualizza testata
-	private boolean showFooter;                //  visualizza pie di pagina
-	private boolean showHeaderOnFirstPage;     //  mostra testata sulla prima  pag.
-	private boolean showFooterOnFirstPage;     //  mostra pie di pag. sulla prima pag.
-    private boolean showPageNumber;            //  visualizza num. pagina
-    private boolean showPageTotal;             //  visualizza num paginaa X di Y
-    private boolean showPageNumberIfOnePage;   //  visualizza num paginaa anche se solo una pag.
-	private boolean showPrintDate;             //  mostra data di stampa
-	private boolean useHrRuler;                //  visualizza riga  orizz. su testata / pie pag.
-	private boolean alternateRow;              //  visualizza righe tabelle a colori alternati
-	private BaseColor oddBackColor;                //  colore righe pari
-	private BaseColor evenBackColor;               //  colre righe dispari
+	private boolean showHeader;                //  flag to display page header
+	private boolean showFooter;                //  flag to display page footer
+	private boolean showHeaderOnFirstPage;     //  flag to display page header on the 1st page
+	private boolean showFooterOnFirstPage;     //  flag to display page footer on the 1st page
+    private boolean showPageNumber;            //  flag to display page number
+    private boolean showPageTotal;             //  flag to display page number X of Y
+    private boolean showPageNumberIfOnePage;   //  flag to display page number even if 1 page only
+	private boolean showPrintDate;             //  flag to display printing date
+	private boolean useHrRuler;                //  flag to use an H rules as separator in header/footer
 
-	private PageType pageType;                 //  formato pag. (A4, A3, AUTO(
-	private PageOrientation pageOrientation;   //  orienamento pagina (VERT., ORIZ)
+	private boolean alternateRow;              //  flag to display table rows in alternate colors
+	private BaseColor oddBackColor;            //  color to use for odd table rows
+	private BaseColor evenBackColor;           //  color to use for even table rows
+
+	private PageType pageType;                 //  page format (A4, A3, AUTO)
+	private PageOrientation pageOrientation;   //  page orientation (VERT., ORIZ., AUTO)
+
     private Locale localization;               //  Locale for display formats and text labels
 
 	public ReportOptions()
@@ -73,7 +81,7 @@ public class ReportOptions
 			.setShowPrintDate(true)
 			.setUseHrRuler(false)
 			.setPageType(PageType.TYPE_AUTO)
-			.setPageOrientation(PageOrientation.PAGE_VERTICAL)
+			.setPageOrientation(PageOrientation.PAGE_AUTO)
 			.setAlternateRow(true)
 			.setEvenBackColor(Colors.EVENROW.getColor())
 			.setOddBackColor(Colors.ODDROW.getColor())

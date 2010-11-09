@@ -16,6 +16,10 @@
 
 package net.digitstar.vanadio;
 
+import net.digitstar.vanadio.enums.core.LocalizableEnum;
+
+import java.util.Locale;
+
 /**
  * Author: alx
  * Date: 7-nov-2010
@@ -25,10 +29,12 @@ package net.digitstar.vanadio;
 public abstract class AbstractReportBase
 	implements ReportBase
 {
+    private ReportOptions reportOptions = new ReportOptions();
 
 	/**
-	 *
-	 * @param reportOptions opzioni del report
+	 * To override if needed
+     *
+	 * @param reportOptions report options
 	 * @return opzioniReport
 	 */
 	protected ReportOptions customizeReportOptions(ReportOptions reportOptions)
@@ -36,12 +42,23 @@ public abstract class AbstractReportBase
 		return reportOptions;
 	}
 
+    /**
+     * To override if needed
+     *
+     * @param localization locale
+     * @return Locale
+     */
+    protected Locale customizeLocale(Locale localization)
+    {
+        return localization;
+    }
+
 
 	/**
 	 *
-     * @param reportOptions opzioni del report
+     * @param reportOptions report options
 	 */
-	public void setReportOptions(ReportOptions reportOptions)
+	public final void setReportOptions(ReportOptions reportOptions)
 	{
 		if (reportOptions != null)
 		{
@@ -49,15 +66,21 @@ public abstract class AbstractReportBase
 		}
 	}
 
+    /**
+     *
+     * @param localization locale
+     */
+    protected final void initLocale(Locale localization)
+    {
+        LocalizableEnum.setLocaleDefault(customizeLocale(localization));
+    }
 	/**
 	 *
 	 * @return opzioniReport
 	 */
-	public ReportOptions getReportOptions()
+	public final ReportOptions getReportOptions()
 	{
 		return this.reportOptions;
 	}
-
-	private ReportOptions reportOptions = new ReportOptions();
 
 }
