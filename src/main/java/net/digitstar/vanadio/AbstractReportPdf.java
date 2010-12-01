@@ -35,7 +35,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import net.digitstar.vanadio.enums.FontType;
 import net.digitstar.vanadio.enums.Formats;
 import net.digitstar.vanadio.enums.Labels;
-import net.digitstar.vanadio.enums.core.LocalizableEnum;
 
 import net.digitstar.vanadio.styles.CellStyle;
 import net.digitstar.vanadio.styles.TableStyle;
@@ -51,7 +50,6 @@ import java.io.OutputStream;
 import java.text.Format;
 
 import java.util.Date;
-import java.util.Locale;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -127,7 +125,7 @@ public abstract class AbstractReportPdf<E>
     private Class<E> getDtoClass() {
         return dtoClass;
     }
-    private  void setDtoClass(Class<E> dtoClass) {
+    private  void initDtoClass(Class<E> dtoClass) {
         this.dtoClass = dtoClass;
     }
 
@@ -145,17 +143,17 @@ public abstract class AbstractReportPdf<E>
 		this(dtoClass, null);
 	}
 
-	protected AbstractReportPdf(Class<E> dtoClass, ReportOptions reportOptions)
+	public AbstractReportPdf(Class<E> dtoClass, ReportOptions reportOptions)
 	{
 
         setReportOptions(reportOptions);
 
         initLocale(getReportOptions().getLocalization());
 
-		setDtoClass(dtoClass);
+		initDtoClass(dtoClass);
 	}
 
-    protected Document initDocument(OutputStream out)
+    private Document initDocument(OutputStream out)
         throws Exception
     {
         FontFactory.registerDirectories();
@@ -165,7 +163,7 @@ public abstract class AbstractReportPdf<E>
         return document;
     }
 
-    protected void openDocument(Document document)
+    private void openDocument(Document document)
 	{
 		if(getReportOptions().getPageType() != ReportOptions.PageType.TYPE_AUTO)
 		{
@@ -181,7 +179,7 @@ public abstract class AbstractReportPdf<E>
 		document.open();
 	}
 
-	protected void closeDocument(Document document, ByteArrayOutputStream baos, OutputStream out)
+	private void closeDocument(Document document, ByteArrayOutputStream baos, OutputStream out)
 	{
 		if(document != null)
 		{
@@ -235,7 +233,7 @@ public abstract class AbstractReportPdf<E>
     }
 
 
-    protected void setTitle(Document document, String title, int aligment, Font font)
+    protected void setReportTitle(Document document, String title, int aligment, Font font)
 	{
 
 		TableStyle style = new TableStyle();
@@ -252,42 +250,42 @@ public abstract class AbstractReportPdf<E>
 		tableCompleted(TABLE_TITLE);
 	}
 
-	protected PdfPTable addTable(String tableName, TableStyle styles)
+	protected final PdfPTable addTable(String tableName, TableStyle style)
 	{
-		return addTable(tableName,styles,0,(float[])null);
+		return addTable(tableName,style,0,(float[])null);
 	}
 
 
-	protected PdfPTable addTable(String tableName, TableStyle styles, int colnum, float... widths)
+	protected final PdfPTable addTable(String tableName, TableStyle style, int colnum, float... widths)
 	{
-		if(styles != null)
+		if(style != null)
 		{
 			if(colnum > 0)
 			{
-				styles.setColumnNumber(colnum);
+				style.setColumnNumber(colnum);
 			}
 
 			if(widths != null)
 			{
-				styles.setColumnWidths(widths);
+				style.setColumnWidths(widths);
 			}
 
 		}
-		return getTables().createTable(tableName, styles);
+		return getTables().createTable(tableName, style);
 	}
 
 
-	protected PdfPCell addTable(String tableName, Object content, CellStyle style)
+	protected final PdfPCell addTable(String tableName, Object content, CellStyle style)
 	{
 		return getTables().addCell(tableName, content, style);
 	}
 
-	protected Table getTable(String tableName)
+	protected final Table getTable(String tableName)
 	{
 		return getTables().getTable(tableName);
 	}
 
-    protected void tableCompleted(String tableName)
+    protected final void tableCompleted(String tableName)
     {
         Table t = getTable(tableName);
         if(t != null)
@@ -296,52 +294,52 @@ public abstract class AbstractReportPdf<E>
         }
     }
 
-	protected AbstractReportPdf addGroup(String field)
+	protected final AbstractReportPdf addGroup(String field)
 	{
 		return addGroup(field, null);
 	}
 
-	protected AbstractReportPdf addGroup(String field, Object initialValue)
+	protected final AbstractReportPdf addGroup(String field, Object initialValue)
 	{
 		return addGroup(field,null,initialValue,null);
 	}
 
-	protected AbstractReportPdf addGroup(String field, String field2, Object initialValue, Object initialDescription)
+	protected final AbstractReportPdf addGroup(String field, String field2, Object initialValue, Object initialDescription)
 	{
 		getGroups().put(field, new Group(field, field2,initialValue,initialDescription));
 		return this;
 	}
 
-	protected Group getGroup(String field)
+	protected final Group getGroup(String field)
 	{
 		return getGroups().get(field);
 	}
 
-	protected boolean isGroupValueChanged(String field)
+	protected final boolean isGroupValueChanged(String field)
 	{
 		Group grp = getGroup(field);
 		return (grp != null) && grp.isValueChanged();
 	}
 
-	protected Object getGroupCurrentValue(String field)
+	protected final Object getGroupCurrentValue(String field)
 	{
 		Group grp = getGroup(field);
 		return (grp != null) ? grp.getCurrentValue() : null;
 	}
 
-	protected Object getGroupOldValue(String field)
+	protected final Object getGroupOldValue(String field)
 	{
 		Group grp = getGroup(field);
 		return (grp != null) ? grp.getOldValue() : null;
 	}
 
-	protected Object getGroupCurrentDescription(String field)
+	protected final Object getGroupCurrentDescription(String field)
 	{
 		Group grp = getGroup(field);
 		return (grp != null) ? grp.getCurrentDescription() : null;
 	}
 
-	protected Object getGroupOldDescription(String field)
+	protected final Object getGroupOldDescription(String field)
 	{
 		Group grp = getGroup(field);
 		return (grp != null) ? grp.getOldDescription() : null;
@@ -432,7 +430,7 @@ public abstract class AbstractReportPdf<E>
 		return ok;
 	}
 
-    protected boolean addTablesToDocument(Document document, TableMap tables)
+    private boolean addTablesToDocument(Document document, TableMap tables)
 		throws Exception
 	{
 		boolean ok = false;
@@ -547,52 +545,52 @@ public abstract class AbstractReportPdf<E>
 		throws Exception;
 
 
-	protected Font getFont()
+	protected final Font getFont()
 	{
 		return FontType.NORMAL.getFont();
 	}
 
-	protected Font getFontTitle()
+	protected final Font getFontTitle()
 	{
 		return FontType.TITLE.getFont();
 	}
 
-	protected Font getFontHead()
+	protected final Font getFontHead()
 	{
 		return FontType.HEAD.getFont();
 	}
 
-	protected Format getGenNumberFormat()
+	protected final Format getGenNumberFormat()
 	{
         return Formats.NUMBER.getFormat();
 	}
 
-	protected Format getIntNunberFormat()
+	protected final Format getIntNunberFormat()
 	{
         return Formats.INTEGER.getFormat();
 	}
 
-	protected Format getFractNunberFormat()
+	protected final Format getFractNunberFormat()
 	{
         return Formats.FRACTIONAL.getFormat();
 	}
 
-	protected Format getDateFormat()
+	protected final Format getDateFormat()
 	{
         return Formats.DATE.getFormat();
 	}
 
-	protected Format getHourFormat()
+	protected final Format getHourFormat()
 	{
         return Formats.HOUR2.getFormat();
 	}
 
-	protected Format getHourMinutesFormat()
+	protected final Format getHourMinutesFormat()
 	{
         return Formats.HOURMINUTES.getFormat();
 	}
 
-	protected Format getDateTimeFormat()
+	protected final Format getDateTimeFormat()
 	{
 		return Formats.DATETIME.getFormat();
 	}
