@@ -16,7 +16,9 @@
 
 package net.digitstar.vanadio;
 
+import com.itextpdf.text.Document;
 import net.digitstar.vanadio.enums.core.LocalizableEnum;
+import net.digitstar.vanadio.styles.Rect;
 
 import java.util.Locale;
 
@@ -53,6 +55,16 @@ public abstract class AbstractReportBase
         return localization;
     }
 
+    protected Rect<Float> customizeMargins(Document document)
+    {
+        return new Rect<Float>(document.topMargin(),document.topMargin(),document.rightMargin(),document.bottomMargin())
+        {
+            @Override protected Float zero()
+            {
+                return 0.0f;
+            }
+        };
+    }
 
 	/**
 	 *
