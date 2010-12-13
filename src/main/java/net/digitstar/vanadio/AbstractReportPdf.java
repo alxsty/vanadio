@@ -159,11 +159,11 @@ public abstract class AbstractReportPdf<E>
         FontFactory.registerDirectories();
         Document document = new Document();
         PdfWriter.getInstance(document, out).setPageEvent(this);
-        openDocument(document);
+        document = initPageLayout(document);
         return document;
     }
 
-    private void openDocument(Document document)
+    private Document initPageLayout(Document document)
 	{
 		if(getReportOptions().getPageType() != ReportOptions.PageType.TYPE_AUTO)
 		{
@@ -176,7 +176,13 @@ public abstract class AbstractReportPdf<E>
 				document.setPageSize(getReportOptions().getPageOrientation() == ReportOptions.PageOrientation.PAGE_VERTICAL ? PageSize.A3 : PageSize.A3.rotate());
 			}
 		}
+        else
+        {
+
+        }
+
 		document.open();
+        return document;
 	}
 
 	private void closeDocument(Document document, ByteArrayOutputStream baos, OutputStream out)
